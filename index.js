@@ -1,5 +1,5 @@
 const discord = require("discord.js");
-const client = new discord.Client(763128113466835025)
+const client = new discord.Client(process.env.client)
 const token = (process.env.token)
 const ServerID = (process.env.ServerID)
 const prefix = "<"
