@@ -1,14 +1,17 @@
 # Supporto
-Supporto è un BOT su Discord simile ad un MailBot, ma totalmente in italiano!
 
-ISCRIVITI AL MIO CANALE YOUTUBE: https://bit.ly/2yMCfXw
+Supporto è un BOT su Discord simile ad un MailBot, ma totalmente in **ITALIANO**!
 
-ISCRIVITI AL MIO CANALE TWITCH: http://bit.ly/Twitch-Lomba
+Basta scrivergli un messaggio in *privato* e ti darà un biglietto come prenotazione! I moderatori potranno comunicare con te 
 
-SEGUIMI SU INSTAGRAM: https://bit.ly/3bOgBQj
+- ISCRIVITI AL MIO CANALE [YOUTUBE](https://www.youtube.com/channel/UC68IrON62XJSCMzEl9M-JFg?sub_confirmation=1);
 
-FIVERR: http://bit.ly/Fiverr-Lomba
+- ISCRIVITI AL MIO CANALE [TWITCH](http://bit.ly/Twitch-Lomba);
+
+- SEGUIMI SU [INSTAGRAM](https://bit.ly/3bOgBQj);
+
+- [FIVERR](http://bit.ly/Fiverr-Lomba).
 
 GRAZIE MILLE SE SEGUI TUTTI QUESTI PASSAGGI,
 
-Lomba
+*Andrea Lombardi*

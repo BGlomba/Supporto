@@ -8,7 +8,7 @@ client.on("ready", () => {
 console.log("Il BOT è stato avviato correttamente.")
 
 
-client.user.setActivity("Scrivimi un messaggio")
+client.user.setActivity("contattare i moderatori!")
 })
 
 client.on("channelDelete", (channel) => {
@@ -155,7 +155,7 @@ client.on("message", async message => {
           .setAuthor('BOT DI SUPPORTO', client.user.displayAvatarURL())
           .setColor("GREEN")
           
-        .setDescription("Questo BOT è stato creato da Lomba per voi")
+        .setDescription("Questo BOT è stato creato da Andrea Lombardi per voi!")
         .addField(prefix + "setup", "Avvia la procedura di configurazione.", true)
   
         .addField(prefix + "open", 'Apre una prenotazione con un utente specifico.', true)
