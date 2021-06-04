@@ -12,16 +12,16 @@ client.user.setActivity("contattare i moderatori!")
 })
 
 client.on("channelDelete", (channel) => {
-    if(channel.parentID == channel.guild.channels.cache.find((x) => x.name == "MODMAIL").id) {
+    if(channel.parentID == channel.guild.channels.cache.find((x) => x.name == "TICKET").id) {
         const person = channel.guild.members.cache.find((x) => x.id == channel.name)
 
         if(!person) return;
 
         let yembed = new discord.MessageEmbed()
-        .setAuthor("PRENOTAZIONE CANCELLATA", client.user.displayAvatarURL())
+        .setAuthor("PRENOTAZIONE CHIUSA", client.user.displayAvatarURL())
         .setColor('RED')
         .setThumbnail(client.user.displayAvatarURL())
-        .setDescription("La tua prenotazione è stata cancellata da un moderatore. Se hai ancora un problema, puoi continuare a scrivere qui inviando un messaggio.")
+        .setDescription("La tua prenotazione è stata chiusa da un moderatore. Se hai ancora un problema, puoi avviare una nuova prenotazione scrivendo qui un messaggio.")
     return person.send(yembed)
     
     }
@@ -52,11 +52,11 @@ client.on("message", async message => {
                       name: "Moderatore",
                       color: "GREEN"
                   },
-                  reason: "Ruolo richiesto per ModMail System"
+                  reason: "Ruolo richiesto per il BOT" + client.user.tag
               })
           }
 
-          await message.guild.channels.create("MODMAIL", {  
+          await message.guild.channels.create("TICKET", {  
               type: "category",
               topic: "Tutte le prenotazioni arriveranno qui!",
               permissionOverwrites: [
@@ -72,12 +72,12 @@ client.on("message", async message => {
           })
 
 
-          return message.channel.send("Il setup è stato ultimato.")
+          return message.channel.send("Il setup è stato ultimato con successo!")
 
       } else if(command == "close") {
 
 
-        if(message.channel.parentID == message.guild.channels.cache.find((x) => x.name == "MODMAIL").id) {
+        if(message.channel.parentID == message.guild.channels.cache.find((x) => x.name == "TICKET").id) {
             
             const person = message.guild.members.cache.get(message.channel.name)
 
@@ -88,17 +88,17 @@ client.on("message", async message => {
             await message.channel.delete()
 
             let yembed = new discord.MessageEmbed()
-            .setAuthor("PRENOTAZIONE CANCELLATA", client.user.displayAvatarURL())
+            .setAuthor("PRENOTAZIONE CHIUSA", client.user.displayAvatarURL())
             .setColor("RED")
             .setThumbnail(client.user.displayAvatarURL())
-            .setFooter("La prenotazione è stata cancellata da " + message.author.username)
+            .setFooter("La prenotazione è stata chiusa\nda " + message.author.username)
             if(args[0]) yembed.setDescription(args.join(" "))
 
             return person.send(yembed)
 
         }
       } else if(command == "open") {
-          const category = message.guild.channels.cache.find((x) => x.name == "MODMAIL")
+          const category = message.guild.channels.cache.find((x) => x.name == "TICKET")
 
           if(!category) {
               return message.channel.send("Il sistema di moderazione non è stato configurato in questo server, utilizza " + prefix + "setup")
@@ -126,13 +126,13 @@ client.on("message", async message => {
           })
 
           let nembed = new discord.MessageEmbed()
-          .setAuthor("DETTAGLI", target.user.displayAvatarURL({dynamic: true}))
+          .setAuthor("MESSAGGIO:", target.user.displayAvatarURL({dynamic: true}))
           .setColor("BLUE")
           .setThumbnail(target.user.displayAvatarURL({dynamic: true}))
           .setDescription(message.content)
           .addField("Nome", target.user.username)
           .addField("Data di creazione dell'account", target.user.createdAt)
-          .addField("Contatto Diretto", "Sì (vuol dire che questa prenotazione è stata aperta da un moderatore)");
+          .addField("Prenotazione avviata da un moderatore", "Sì");
 
           channel.send(nembed)
 
@@ -140,7 +140,7 @@ client.on("message", async message => {
           .setAuthor("MESSAGGIO DIRETTO APERTO")
           .setColor("GREEN")
           .setThumbnail(client.user.displayAvatarURL())
-          .setDescription("Sei stato contattato dal moderatore **" + message.guild.name + "**, per favore attendi fino a quando non ti invierà un messaggio!");
+          .setDescription("Sei stato contattato da uno dei moderatori di **" + message.guild.name + "**, per favore attendi fino a quando non ti invierà un messaggio!");
           
           
           target.send(uembed);
@@ -155,12 +155,12 @@ client.on("message", async message => {
           .setAuthor('BOT DI SUPPORTO', client.user.displayAvatarURL())
           .setColor("GREEN")
           
-        .setDescription("Questo BOT è stato creato da Andrea Lombardi per voi!")
-        .addField(prefix + "setup", "Avvia la procedura di configurazione.", true)
+        .setDescription("Questo BOT è stato creato da Andrea Lombardi per le vostre prenotazioni!")
+        .addField(prefix + "setup", "Avvia la procedura di configurazione.\nQuesto crea un nuovo ruolo (Moderatore) e una categoria dove saranno presenti tutte le prenotazioni.", true)
   
-        .addField(prefix + "open", 'Apre una prenotazione con un utente specifico.', true)
+        .addField(prefix + "open + ```userID```", 'Apre una prenotazione con un utente specifico.\nPer ```userID```, digitare il nome della persona (es. ' + message.author.username + ') inserendo "\\" prima della menzione.', true)
         .setThumbnail(client.user.displayAvatarURL())
-                    .addField(prefix + "close", "Cancella una prenotazione da una già aperta.", true);
+                    .addField(prefix + "close", "Cancella una prenotazione da una già aperta.\nQuesto comando deve essere eseguito all'interno del canale testuale in cui si desidera chiudere la prenotazione.", true);
 
                     return message.channel.send(embed)
           
@@ -175,7 +175,7 @@ client.on("message", async message => {
   
   if(message.channel.parentID) {
 
-    const category = message.guild.channels.cache.find((x) => x.name == "MODMAIL")
+    const category = message.guild.channels.cache.find((x) => x.name == "TICKET")
     
     if(message.channel.parentID == category.id) {
         let member = message.guild.members.cache.get(message.channel.name)
@@ -212,7 +212,7 @@ client.on("message", async message => {
       if(!guild) return;
 
       const main = guild.channels.cache.find((x) => x.name == message.author.id)
-      const category = guild.channels.cache.find((x) => x.name == "MODMAIL")
+      const category = guild.channels.cache.find((x) => x.name == "TICKET")
 
 
       if(!main) {
@@ -226,19 +226,19 @@ client.on("message", async message => {
           .setAuthor("PRENOTAZIONE ACCETTATA")
           .setColor("GREEN")
           .setThumbnail(client.user.displayAvatarURL())
-          .setDescription("La conversazione è accettata, presto sarai contattato con un moderatore.")
+          .setDescription("La conversazione è stata accettata, presto sarai contattato da un moderatore.")
 
           message.author.send(sembed)
 
 
           let eembed = new discord.MessageEmbed()
-          .setAuthor("DETTAGLI", message.author.displayAvatarURL({dynamic: true}))
+          .setAuthor("MESSAGGIO:", message.author.displayAvatarURL({dynamic: true}))
           .setColor("BLUE")
           .setThumbnail(message.author.displayAvatarURL({dynamic: true}))
           .setDescription(message.content)
           .addField("Nome", message.author.username)
           .addField("Data di creazione dell'account", message.author.createdAt)
-          .addField("Prenotazione diretta", "No (vuol dire che questa prenotazione non è stata aperta da un moderatore)")
+          .addField("Prenotazione avviata da un moderatore", "No")
 
 
         return mx.send(eembed)
