@@ -43,20 +43,20 @@ client.on("message", async message => {
               return message.channel.send("Devi essere un amministratore per modificare le impostazioni di questo BOT.")
           }
 
-          let role = message.guild.roles.cache.find((x) => x.name == "SUPPORTER")
+          let role = message.guild.roles.cache.find((x) => x.name == "Moderatore")
           let everyone = message.guild.roles.cache.find((x) => x.name == "@everyone")
 
           if(!role) {
               role = await message.guild.roles.create({
                   data: {
-                      name: "SUPPORTER",
+                      name: "Moderatore",
                       color: "GREEN"
                   },
                   reason: "Ruolo richiesto per ModMail System"
               })
           }
 
-          await message.guild.channels.create("MODMAIL", {
+          await message.guild.channels.create("MODMAIL", {  
               type: "category",
               topic: "Tutte le prenotazioni arriveranno qui!",
               permissionOverwrites: [
@@ -104,7 +104,7 @@ client.on("message", async message => {
               return message.channel.send("Il sistema di moderazione non è stato configurato in questo server, utilizza " + prefix + "setup")
           }
 
-          if(!message.member.roles.cache.find((x) => x.name == "SUPPORTER")) {
+          if(!message.member.roles.cache.find((x) => x.name == "Moderatore")) {
               return message.channel.send("Devi avere il ruolo di moderatore per utilizzare questo comando")
           }
 
